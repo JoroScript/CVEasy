@@ -64,7 +64,7 @@ export default function SkillsCard(){
     
       const handleNext = () =>{
         if(skills.length>0){
-            navigate("/education")
+            navigate("/languages")
         }
       }
     return(

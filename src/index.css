@@ -16,6 +16,10 @@ body{
     font-family: 'Now-Black';
     src: url('/src/assets/fonts/Now-Black.otf') format('opentype');
 }
+@font-face {
+    font-family: 'Now-Light';
+    src: url('/src/assets/fonts/Now-Light.otf') format('opentype');
+}
 input,textarea,button{
     font-family: "Lexend", serif;
 }
@@ -61,14 +65,41 @@ form.interestsForm{
 
 #cv-container {
     width: 794px; /* A4 width in pixels */
-    height: 1123px; /* A4 height in pixels */
     background: white;
     font-family: Arial, sans-serif;
     color: #000;
     display: flex;
     gap: 1em;
+    line-height: 25px;
+    font-family: "Lexend", sans-serif;
   }
+  .lastName{
+    font-family: 'Now-Light', sans-serif;
+    color: #183046;
+  }
+  .firstName{
+    color: #585858;
 
+  }
+  div.skills,div.personalInfo,div.hobbies,div.languages{
+    width: 100%;
+
+  }
+  div.skills,div.hobbies{
+    margin-bottom: 1em;
+  }
+div.personalInfo div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-block: 1.2em;
+
+}
+
+div.personalInfo p{
+    margin: 0;
+    padding: 0;
+}
   #cv-container.ql-toolbar,.readOnlyQuill .ql-toolbar {
     display: none;
   }
@@ -87,15 +118,17 @@ form.interestsForm{
     font-family: 'Now-Black', sans-serif;
 
   }
+
   #cv-container .cv-left .cardTitle{
     color: #FFF;
+    border-bottom: 2px solid #FFF;
+
   }
   #cv-container h1{
     font-family: 'Now-Black', sans-serif;
   }
   .workExperience{
     color: #545454;
-    padding: 20px;
   }
 
 .work-div p,.work-div h3,.hirer{
@@ -106,9 +139,24 @@ form.interestsForm{
 .work-div .job-title{
     font-weight: bold;
 }
-#cv-container .readOnlyQuill{
-    
+.cv-right p{
+     word-wrap: break-word;
+
 }
+.cv-right div.ql-editor{
+    padding: 0;
+}
+.work-date{
+    font-size: 13px;
+}
+.educationElement h3{
+    text-align: start;
+    color: #545454;
+    margin: 0;
+
+
+}
+
 .hirer{
     text-align: start;
     margin-top: 3px;
@@ -117,19 +165,27 @@ form.interestsForm{
 .cv-left{
     padding: 20px;
     background-color: #163853;
-    flex-basis: 28%;
+    flex: 1;
     color: #FFF;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 10px;
 }
+
 .cv-right{
-    flex-basis: 70%;
+    flex: 2;
+    min-width: 0;
+    padding-right: 1em;
+    
+}
+.cv-right .cardTitle{
+    margin-block: 1.3em;
 }
 .cv-right h1{
     margin-top: 2em;
     text-transform: uppercase;
-    margin-bottom: 2em;
+    margin-bottom: 2.5em;
     text-align: center;
 }
 .cvImg{
@@ -137,6 +193,9 @@ form.interestsForm{
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    border: 5px solid #FFF;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
 }
 .cv-outer{
     margin-top: 15em;

@@ -9,6 +9,7 @@ import InterestsCard from './InterestsCard'
 import SkillsCard from './SkillsCard'
 import EducationCard from './EducationCard'
 import CvCard from './CvCard'
+import LanguagesCard from "./LanguagesCard"
 function App() {
   useEffect(() => {
     // Clear localStorage when the page is reopened 
@@ -24,8 +25,10 @@ function App() {
     <Route path="/workexperience" element={<WorkExperienceCard/>} />
     <Route path="/interests" element={<InterestsCard/>} />
     <Route path="/skills" element={<SkillsCard  />} />
+    <Route path="/languages" element={<LanguagesCard/>} />
     <Route path="/education" element={<EducationCard  />} />
     <Route path="/cv" element={<CvCard/>} />
+    
 
 
 

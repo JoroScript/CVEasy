@@ -35,6 +35,7 @@ export type WorkExperience = {
     workExperience: WorkExperience[],
     interests: string[],
     skills: string[],
+    languages: string[],
     education: Education[],
 
     updatePersonalInfo: (info: PersonalInfo)=>void,
@@ -47,9 +48,15 @@ export type WorkExperience = {
     addNewInterest: (info: string) => void,
     editInterest: (index: number,info: string) => void,
     deleteInterest: (index: number) => void,
+
     addNewSkill: (info: string) => void,
     editSkill: (index: number,info: string) => void,
-    deleteSkill: (index: number) => void
+    deleteSkill: (index: number) => void,
+
+    addNewLang: (info: string) => void,
+    editLang: (index: number,info: string) => void,
+    deleteLang: (index: number) => void,
+
     
     updateEducation: (info: Education) => void
     editEducation: (index: number,toAdd: Education) => void
@@ -75,6 +82,7 @@ export const DefaultContextValues :CVContextType = {
     workExperience: [],
     interests: [],
     skills: [],
+    languages: [],
     education: [],
     updatePersonalInfo: ()=>null,
     updateResume: ()=>null,
@@ -90,6 +98,9 @@ export const DefaultContextValues :CVContextType = {
     addNewSkill: ()=>null,
     editSkill: ()=>null,
     deleteSkill: ()=>null,
+    addNewLang: ()=>null,
+    editLang: ()=>null,
+    deleteLang: ()=>null,
 
     updateEducation: ()=>null,
     editEducation: ()=>null,
@@ -111,6 +122,8 @@ export default function CVContextProvider(props: Props){
     const [workExperience,setWorkExperience] = useState<WorkExperience[]>(DefaultContextValues.workExperience)
     const [interests,setInterests] = useState<string[]>(DefaultContextValues.interests);
     const [skills,setSkills] = useState<string[]>(DefaultContextValues.skills);
+    const [languages,setLanguages] = useState<string[]>(DefaultContextValues.languages);
+
     const [education,setEducation] = useState<Education[]>(DefaultContextValues.education);
     const updatePersonalInfo  = (data: PersonalInfo) => {
         setPersonalInfo(data);
@@ -178,7 +191,7 @@ export default function CVContextProvider(props: Props){
             return newInterests;
         })
     }
-
+    // skills funcs
     const addNewSkill = (data: string) =>{
         setSkills(prev=>[...prev,data]);
     }
@@ -198,7 +211,25 @@ export default function CVContextProvider(props: Props){
             return newSKills;
         })
     }
+    // Languages funcs
 
+    const addNewLang = (data: string) =>{
+        setLanguages(prev=>[...prev,data]);
+    }
+    const editLang = (index: number,data: string) => {
+        setLanguages(prev=>{
+            const newLangs = [...prev];
+            newLangs.splice(index,1,data);
+            return newLangs
+        })
+    }
+    const deleteLang = (index: number) =>{
+        setLanguages(prev=>{
+            const newLangs= [...prev];
+            newLangs.splice(index,1);
+            return newLangs;
+        })
+    }
     return(
         <CVContext.Provider value={{personalInfo,
             resume,
@@ -223,7 +254,12 @@ export default function CVContextProvider(props: Props){
            education,
            updateEducation,
            editEducation,
-           deleteEducation
+           deleteEducation,
+
+           languages,
+           addNewLang,
+           editLang,
+           deleteLang
 
         }}>
         {props.children}

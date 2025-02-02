@@ -3,18 +3,23 @@ import { CVContext, CVContextType } from "./CVContextProvider";
 import {exportToPDF} from "./exportToPDF"
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import MailIcon from '@mui/icons-material/Mail';
+import RoomIcon from '@mui/icons-material/Room';
+import InfoIcon from '@mui/icons-material/Info';
+import PhoneIcon from '@mui/icons-material/Phone';
 export default function CvCard(){
-    const {education,workExperience,skills,interests,personalInfo,resume} = useContext<CVContextType>(CVContext);
+    const {education,workExperience,skills,interests,languages,personalInfo,resume} = useContext<CVContextType>(CVContext);
 
     const workExperienceElements = workExperience.map(exp=>{
         return <div className="workExperience">
 
             <div className="work-div">
             <h3 className="job-title">{exp.jobTitle}</h3>
-            <p>{formatYearMonth(exp.startDate)} - {formatYearMonth(exp.endDate)}</p>
-            </div>
+            <p className="work-date">{formatYearMonth(exp.startDate)} - {formatYearMonth(exp.endDate)}</p>
 
-            <h3 className="hirer">{exp.hirer}</h3>
+            </div>
+                <h3 className="hirer">{exp.hirer}</h3>
+            
             <ReactQuill className='readOnlyQuill' readOnly={true} theme="snow" value={exp.description}></ReactQuill>
 
         </div>
@@ -23,25 +28,30 @@ export default function CvCard(){
         const date = new Date(dateString);
         
         const year = date.getFullYear();
-        const month = date.toLocaleString("en-US", { month: "long" });
+        const month = date.toLocaleString("en-US", { month: "short" });
     
-        return `${year}, ${month}`;
+        return `${year} ${month.toUpperCase()}`;
     }
 
     const educationElements = education.map(ed=>{
         return <div className="educationElement">
-            <h4>{ed.name}</h4>
-            <p>{ed.startYear}/{ed.endYear}</p>
+            <div className="work-div">
+            <h3>{ed.name}</h3>
+            <p>{ed.startYear} - {ed.endYear}</p>
+            </div>
             <p>{ed.place}</p>
         </div>
     })
 
     const skillsElements = skills.map(skill=>{
-        return <p>{skill}</p>
+        return <li>{skill}</li>
     })
 
     const interestsElements = interests.map(interest=>{
-        return <p>{interest}</p>
+        return <li>{interest}</li>
+    })
+    const languageElements= languages.map(interest=>{
+        return <li>{interest}</li>
     })
     return (
         <div className="cv-outer">
@@ -52,21 +62,36 @@ export default function CvCard(){
 
             <div className="personalInfo">
                 <h2 className="cardTitle">CONTACTS</h2>
-                <p>{personalInfo.email}</p>
-                <p>{personalInfo.address}</p>
-                <p>{personalInfo.age}</p>
-                <p>{personalInfo.phone}</p>
+
+               <div><MailIcon/>  <p>{personalInfo.email}</p></div>
+                <div><RoomIcon/>  <p>{personalInfo.address}</p></div>
+                <div><InfoIcon/> <p> {personalInfo.name} {personalInfo.lastName},{personalInfo.age}</p></div>
+                 <div><PhoneIcon/> <p>{personalInfo.phone}</p></div>
+
             </div>
+            <div className="skills">
+
             <h2 className="cardTitle">SKILLS</h2>
             {skillsElements}
+
+            </div>
+
+            <div className="hobbies">
             <h2 className="cardTitle">HOBBIES</h2>
-
             {interestsElements}
+            </div>
 
+
+            <div className="languages">
+            <h2 className="cardTitle">LANGUAGES</h2>
+            {languageElements}
+            </div>
+
+            
             </div>
 
             <div className="cv-right">
-                <h1>{personalInfo.name} {personalInfo.lastName}</h1>
+                <h1><span className="firstName">{personalInfo.name}</span> <span className="lastName">{personalInfo.lastName}</span></h1>
 
                 <div className="resume">
                     <h2 className="cardTitle">SUMMARY</h2>
