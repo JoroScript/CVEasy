@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext, useEffect, useState } from "react"
 import { CVContext, CVContextType, WorkExperience } from "./CVContextProvider";
-import { useNavigate } from "react-router";
+import { useNavigate,Navigate } from "react-router";
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -48,7 +48,7 @@ export default function WorkExperienceCard(){
     hirer: ""
     }
     const navigate = useNavigate();
-    const {workExperience,updateWorkExperience,editWorkExperience,deleteWorkExperience} = useContext<CVContextType>(CVContext);
+    const {workExperience,resume,updateWorkExperience,editWorkExperience,deleteWorkExperience} = useContext<CVContextType>(CVContext);
     const [formData,setFormData] = useState<WorkExperience>(defaultExp);
     const [editData,setEditData] = useState<editData>(null);
 
@@ -94,6 +94,7 @@ export default function WorkExperienceCard(){
         })
         }
         function handleQuillChange(value: string){
+          if(value.length>=50){
           setFormData(prev=>{
             return{
               ...prev,
@@ -101,13 +102,16 @@ export default function WorkExperienceCard(){
             }
           })
         }
+        }
         function handleEditQuillChange(value: string){
+          if(value.length>=50){
           setEditData(prev=>{
             return{
               ...prev,
               description: value
             }
           })
+        }
         }
         function handleEditChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>){          
             setEditData(prev=>{
@@ -134,6 +138,10 @@ export default function WorkExperienceCard(){
               }
             }
 
+            if(!resume){
+              return <Navigate to="/resume" />
+            }
+            else console.log(resume);
      return (
         <div>
         { workExperience.length>0 && (

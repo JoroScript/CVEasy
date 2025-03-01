@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react"
 import { CVContext, CVContextType } from "./CVContextProvider";
-import {Resume} from './CVContextProvider'
-import { useNavigate } from "react-router";
+import { useNavigate,Navigate } from "react-router";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 export default function ResumeCard(){
 
     const navigate = useNavigate();
-    const {resume,updateResume} = useContext<CVContextType>(CVContext);
+    const {personalInfo,resume,updateResume} = useContext<CVContextType>(CVContext);
 
-    const [formData,setFormData] = useState<Resume>(resume);
+    const [formData,setFormData] = useState<string>(resume);
 
     useEffect(()=>{
         const storedResume = localStorage.getItem('ResumeForm');
@@ -22,8 +23,7 @@ export default function ResumeCard(){
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>){
         event.preventDefault();
-    const allKeysHaveValue = Object.values(formData).every(value => value !== "");
-        if(allKeysHaveValue){
+            if(formData.length>50){
             updateResume(formData)
             localStorage.setItem('resumeForm', JSON.stringify(formData))
             console.log("you went next page");
@@ -35,20 +35,13 @@ export default function ResumeCard(){
         }
     }
     
-    function handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>){
-        setFormData(prev=>{
-           return {
-                ...prev,
-                [event.target.name]: event.target.value
-            }
-        })
+    function handleChange(value: string){
+        setFormData(value);
         }
 
-     return <form className="resumeForm" onSubmit={handleSubmit}>
-        <label htmlFor="title">Title</label>
-        <input id="title" name="title" value={formData.title} onChange={handleChange} placeholder="Catchy Title For Your Resume..."/>
-        <textarea rows={5} cols={50} placeholder="Resume Description..." name="description" value={formData.description} onChange={handleChange}></textarea>
+    {return personalInfo.name  ? <form className="resumeForm" onSubmit={handleSubmit}>
+        <ReactQuill value={formData} className="resumeQuill" placeholder="Your Resume here..." theme="snow" onChange={handleChange}></ReactQuill>
         <button type="submit" >Go to Next Page</button>    
 
-    </form>
+    </form> : <Navigate to="/"/> }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext, useEffect, useState } from "react"
 import { CVContext, CVContextType, Education } from "./CVContextProvider";
-import { useNavigate } from "react-router";
+import { useNavigate,Navigate } from "react-router";
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -43,7 +43,7 @@ export default function EducationCard(){
     place: ""
     }
     const navigate = useNavigate();
-    const {education,updateEducation,editEducation,deleteEducation} = useContext<CVContextType>(CVContext);
+    const {languages,education,updateEducation,editEducation,deleteEducation} = useContext<CVContextType>(CVContext);
     const [formData,setFormData] = useState<Education>(defaultEd);
     const [editData,setEditData] = useState<editData>(null);
 
@@ -111,6 +111,9 @@ export default function EducationCard(){
               if(education.length>0){
                 navigate('/cv')
               }
+            }
+            if(languages.length===0){
+             return <Navigate to="/languages"/>
             }
 
      return (

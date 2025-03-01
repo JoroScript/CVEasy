@@ -73,6 +73,9 @@ form.interestsForm{
     line-height: 25px;
     font-family: "Lexend", sans-serif;
   }
+#cv-container .resume .readOnlyQuill .ql-editor p{
+font-size: 17px; 
+}
   .lastName{
     font-family: 'Now-Light', sans-serif;
     color: #183046;
@@ -198,7 +201,6 @@ div.personalInfo p{
     margin-top: 1.5em;
 }
 .cv-outer{
-    margin-top: 15em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -266,9 +268,13 @@ form.resumeForm{
     flex-direction: column;
     gap: 1em;
 }
-.resumeForm textarea{
-    max-width: 750px;
-    min-width: 500px;
+.resumeForm .resumeQuill{
+    max-width: 600px;
+    min-width: 600px;
+}
+.resumeForm .resumeQuill .ql-editor{
+    height: 130px;
+    font-size: 1.2em;
 }
 /*  */
 form .ageDiv{

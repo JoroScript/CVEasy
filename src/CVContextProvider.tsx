@@ -11,10 +11,7 @@ export type PersonalInfo = {
     address: string,
     personImg: string | undefined
 }
-export type Resume = {
-     title: string,
-     description: string
-} 
+
 export type  Education = {
     name: string,
     place: string,
@@ -31,7 +28,7 @@ export type WorkExperience = {
 
  export type CVContextType = {
     personalInfo: PersonalInfo,
-    resume: Resume,
+    resume: string,
     workExperience: WorkExperience[],
     interests: string[],
     skills: string[],
@@ -39,7 +36,7 @@ export type WorkExperience = {
     education: Education[],
 
     updatePersonalInfo: (info: PersonalInfo)=>void,
-    updateResume: (info: Resume)=>void,
+    updateResume: (info: string)=>void,
 
     updateWorkExperience: (info: WorkExperience) => void,
     editWorkExperience: (index: number,toAdd: WorkExperience) => void,
@@ -74,11 +71,7 @@ export const DefaultContextValues :CVContextType = {
         address: "",
         personImg: undefined
     },
-    resume: {
-        title: "",
-        description: ""
-    },
-
+    resume: "",
     workExperience: [],
     interests: [],
     skills: [],
@@ -118,7 +111,7 @@ export default function CVContextProvider(props: Props){
 
 
     const [personalInfo,setPersonalInfo] = useState<PersonalInfo>(DefaultContextValues.personalInfo);
-    const [resume,setResume] = useState<Resume>(DefaultContextValues.resume);
+    const [resume,setResume] = useState<string>(DefaultContextValues.resume);
     const [workExperience,setWorkExperience] = useState<WorkExperience[]>(DefaultContextValues.workExperience)
     const [interests,setInterests] = useState<string[]>(DefaultContextValues.interests);
     const [skills,setSkills] = useState<string[]>(DefaultContextValues.skills);
@@ -129,7 +122,7 @@ export default function CVContextProvider(props: Props){
         setPersonalInfo(data);
     } 
 
-    const updateResume  = (data: Resume) => {
+    const updateResume  = (data: string) => {
         setResume(data)
     } 
     // workExperience functions

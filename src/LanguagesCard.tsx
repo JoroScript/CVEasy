@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
 import { CVContext, CVContextType } from "./CVContextProvider"
-import { useNavigate } from "react-router";
+import { useNavigate,Navigate } from "react-router";
 export default function LanguagesCard(){
-    const {languages,addNewLang,editLang,deleteLang} = useContext<CVContextType>(CVContext);
+    const {skills,languages,addNewLang,editLang,deleteLang} = useContext<CVContextType>(CVContext);
     const [formData,setFormData ] = useState<string | undefined>(undefined)
     const [editLangData,seteditLangData] = useState<{data: string, index: number} | null>(null);
     const navigate = useNavigate();
@@ -67,7 +67,7 @@ export default function LanguagesCard(){
             navigate("/education")
         }
       }
-    return(
+    {return skills.length>0 ? (
         <div>
             {ElementsDisplay}
        {editLangData===null && <form onSubmit={handleSubmit} className="languagesForm">
@@ -77,6 +77,6 @@ export default function LanguagesCard(){
             </form>}
             <button onClick={handleNext} >Go To Next Step</button>
         </div> 
-    )
+    ) : <Navigate to="/skills"/>}
     
 }

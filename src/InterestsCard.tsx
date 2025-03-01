@@ -1,10 +1,10 @@
 import { useContext, useState } from "react"
 import { CVContext, CVContextType } from "./CVContextProvider"
-import { useNavigate } from "react-router";
+import { useNavigate,Navigate} from "react-router";
 
 export default function InterestsCard(){
     const navigate=useNavigate();
-    const {interests,addNewInterest,editInterest,deleteInterest} = useContext<CVContextType>(CVContext);
+    const {workExperience,interests,addNewInterest,editInterest,deleteInterest} = useContext<CVContextType>(CVContext);
     const [formData,setFormData ] = useState<string | undefined>(undefined)
     const [editInterestData,setEditInterestData] = useState<{data: string, index: number} | null>(null);
 
@@ -70,7 +70,7 @@ export default function InterestsCard(){
     }
     else console.log("You need to add an interest");
    }
-    return(
+     {return workExperience.length>0 ? (
         <div>
             {ElementsDisplay}
        {editInterestData===null && <form onSubmit={handleSubmit} className="interestsForm">
@@ -80,5 +80,5 @@ export default function InterestsCard(){
             </form>}
             <button onClick={handleNext}>Go To Next Step</button>
         </div> 
-    )
+    ) : <Navigate to="/workexperience" /> }
 }

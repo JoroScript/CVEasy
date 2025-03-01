@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CVContext, CVContextType } from "./CVContextProvider";
+import { Navigate } from "react-router";
 import {exportToPDF} from "./exportToPDF"
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -9,6 +10,9 @@ import InfoIcon from '@mui/icons-material/Info';
 import PhoneIcon from '@mui/icons-material/Phone';
 export default function CvCard(){
     const {education,workExperience,skills,interests,languages,personalInfo,resume} = useContext<CVContextType>(CVContext);
+    if(education.length===0){
+        return <Navigate to="/education"/>
+    }
 
     const workExperienceElements = workExperience.map(exp=>{
         return <div className="workExperience">
@@ -95,7 +99,7 @@ export default function CvCard(){
 
                 <div className="resume">
                     <h2 className="cardTitle">SUMMARY</h2>
-                    <p>{resume.description}</p>
+                    <ReactQuill className='readOnlyQuill' readOnly={true} theme="snow" value={resume}></ReactQuill>
                 </div>
                 <h2 className="cardTitle">WORK EXPERIENCE</h2>
                 {workExperienceElements}

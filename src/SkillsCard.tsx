@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
 import { CVContext, CVContextType } from "./CVContextProvider"
-import { useNavigate } from "react-router";
+import { useNavigate,Navigate} from "react-router";
 export default function SkillsCard(){
-    const {skills,addNewSkill,editSkill,deleteSkill} = useContext<CVContextType>(CVContext);
+    const {interests,skills,addNewSkill,editSkill,deleteSkill} = useContext<CVContextType>(CVContext);
     const [formData,setFormData ] = useState<string | undefined>(undefined)
     const [editSkillData,setEditSkillData] = useState<{data: string, index: number} | null>(null);
     const navigate = useNavigate();
@@ -67,7 +67,7 @@ export default function SkillsCard(){
             navigate("/languages")
         }
       }
-    return(
+    {return interests.length>0 ? (
         <div>
             {ElementsDisplay}
        {editSkillData===null && <form onSubmit={handleSubmit} className="skillsForm">
@@ -77,6 +77,6 @@ export default function SkillsCard(){
             </form>}
             <button onClick={handleNext} >Go To Next Step</button>
         </div> 
-    )
+    ) : <Navigate to="/interests"/>}
     
 }
